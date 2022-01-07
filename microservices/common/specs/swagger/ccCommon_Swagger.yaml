@@ -1,0 +1,58 @@
+openapi: 3.0.1
+info:
+  title: Cloud Controller Common Microservice
+  license:
+    name: CC-Common
+  version: 1.0.0
+servers:
+- url: /
+security:
+- Bearer: []
+paths:
+  /login:
+    post:
+      tags:
+      - Authentication
+      summary: Login to CC
+      description: API is used to login to CC
+      responses:
+        200:
+          description: Successfully Authenticated User
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  displayName:
+                    type: string
+                    description: display Name
+                  jwt:
+                    type: string
+                    description: jwt token
+      security:
+      - BasicAuth: []
+  /logout:
+    post:
+      tags:
+      - Authentication
+      summary: Logout of CC
+      description: API is used to logout from CC
+      responses:
+        200:
+          description: Logout successful
+          content:
+            '*/*':
+              schema:
+                type: boolean
+                example: true
+      security:
+      - Bearer: []
+                  
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+    BasicAuth:
+      type: http
+      scheme: basic
